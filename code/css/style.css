@@ -1,0 +1,275 @@
+* {box-sizing: border-box;}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  margin: 10px 100px;
+}
+
+/* Style the header */
+header {
+  background-color: #0b9822;
+  text-align: center;
+  font-size: 16px;
+  color: white;
+}
+
+header h2 {
+  margin: 0px;
+  padding: 10px;
+}
+
+article {
+  padding: 20px;
+  background-color: #f1f1f1;
+  height: auto; /* only for demonstration, should be removed */
+}
+
+/* Style the footer */
+footer {
+  background-color: #0b9822;
+  height: 25px;
+}
+
+[class*="col-"] {float: left;}
+
+/* Responsive layout */
+[class*="col-"] {
+  /* For mobile phones: */
+  width: 100%;
+}
+
+@media only screen and (max-width: 600px) {
+  #tblShowInfo td:nth-of-type(4),
+  #tblShowInfo th:nth-of-type(4),
+  #tblShowInfo td:nth-of-type(5),
+  #tblShowInfo th:nth-of-type(5),
+  #tblShowInfo td:nth-of-type(6),
+  #tblShowInfo th:nth-of-type(6) {display: none;}
+
+  #txtKind {width: 25%;}
+  #txtDiscount {width: 66.66%;}
+}
+
+@media only screen and (min-width: 600px) {
+  /* For tablets: */
+  .col-st-1 {width: 8.33%;}
+  .col-st-2 {width: 16.66%;}
+  .col-st-3 {width: 25%;}
+  .col-st-4 {width: 33.33%;}
+  .col-st-5 {width: 41.66%;}
+  .col-st-6 {width: 50%;}
+  .col-st-7 {width: 58.33%;}
+  .col-st-8 {width: 66.66%;}
+  .col-st-9 {width: 75%;}
+  .col-st-10 {width: 83.33%;}
+  .col-st-11 {width: 91.66%;}
+  .col-st-12 {width: 100%;}
+}
+
+@media only screen and (max-width: 768px) {
+  #tblShowInfo td:nth-of-type(4),
+  #tblShowInfo th:nth-of-type(4),
+  #tblShowInfo td:nth-of-type(5),
+  #tblShowInfo th:nth-of-type(5) {display: none;}
+}
+
+@media only screen and (min-width: 768px) {
+  /* For desktop: */
+  .col-s-1 {width: 8.33%;}
+  .col-s-2 {width: 16.66%;}
+  .col-s-3 {width: 25%;}
+  .col-s-4 {width: 33.33%;}
+  .col-s-5 {width: 41.66%;}
+  .col-s-6 {width: 50%;}
+  .col-s-7 {width: 58.33%;}
+  .col-s-8 {width: 66.66%;}
+  .col-s-9 {width: 75%;}
+  .col-s-10 {width: 83.33%;}
+  .col-s-11 {width: 91.66%;}
+  .col-s-12 {width: 100%;}
+}
+
+@media only screen and (min-width: 900px) {
+  /* For larger desktop: */
+  .col-1 {width: 8.33%;}
+  .col-2 {width: 16.66%;}
+  .col-3 {width: 25%;}
+  .col-4 {width: 33.33%;}
+  .col-5 {width: 41.66%;}
+  .col-6 {width: 50%;}
+  .col-7 {width: 58.33%;}
+  .col-8 {width: 66.66%;}
+  .col-9 {width: 75%;}
+  .col-10 {width: 83.33%;}
+  .col-11 {width: 91.66%;}
+  .col-12 {width: 100%;}
+
+  .dis_info {display: block;}
+}
+/* ----------------------- */
+
+
+/* Refer in Internet */
+/* Add a black background color to the top navigation */
+.topnav {
+  background-color: #ffce00;
+  overflow: hidden;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+  float: left;
+  color: #000;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  cursor: pointer;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+  background-color: #043869;
+  color: #fff;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+  background-color: #f1f1f1;
+  color: #000;
+  font-weight: bold;
+}
+/* ----------------------- */
+
+
+/* Controls in form */
+.leftSide div {margin-bottom: 10px;}
+
+label {
+  margin-right: 10px;
+  padding-top: 6px;
+}
+
+input[type=text], input[type=password] {
+  padding: 6px 10px;
+  margin-right: 10px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  outline: none;
+}
+
+input[type=text]:focus {border: 2px solid #555;}
+
+select {
+  padding: 5px 6px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+}
+
+select:focus {border: 2px solid #555;}
+
+.errMessage {
+  color: #f00;
+  margin: 6px 0px;
+}
+
+.resMessage {
+  color: #000;
+  margin: 6px 0px;
+}
+
+#resResult2 {
+  font-size: 20px;
+  /*word-spacing: 3px;*/
+}
+
+.dis_info {
+  font-size: 12px;
+  color: #58546d;
+}
+
+#txtKind {margin-right: 10px;}
+.money {text-align: right;}
+
+input[type=button], input[type=submit], input[type=reset] {
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  text-decoration: none;
+  margin: 10px 5px 10px 0px;
+  cursor: pointer;
+}
+
+input[type=button]:hover {
+  background-color: #ff7400;
+  color: black;
+}
+
+.submit-button {
+  background-color: #ffce00;
+  color: black;
+  margin-bottom: 0px;
+}
+
+.cancel-button {
+  background-color: #4CAF50;
+  color: white;
+  margin-bottom: 0px;
+}
+
+table, th, td {
+  border: 1px solid #000;
+  border-collapse: collapse;
+}
+
+#tblShowInfo {
+  width: 100%;
+  margin-top: 10px;
+}
+
+#tblShowInfo th {
+  background-color: #043869;
+  color: white;
+  padding: 5px 10px;
+}
+
+#tblShowInfo td:nth-of-type(1),
+#tblShowInfo td:nth-of-type(2) {text-align: center;}
+
+#tblShowInfo td:nth-of-type(5),
+#tblShowInfo td:nth-of-type(6),
+#tblShowInfo td:nth-of-type(7) {text-align: right;}
+
+#tblShowInfo tr:last-child td:not(:last-child) {padding: 2px 5px;}
+#tblShowInfo tr:last-child td:nth-of-type(2) {text-align: right;}
+
+.rightSide {height: 35px;}
+.rightSide input {
+  float: right;
+  margin: 10px 0px 10px 8px;
+}
+
+#tblSum {
+  display: table;
+  width: 100%;
+}
+
+#tblSum > div {display: table-row;}
+#tblSum > div > div {
+  display: table-cell;
+  padding: 5px 2px 0px 10px;
+  float: right;
+  font-weight: bold;
+}
+
+.btnDel {padding-top: 2px;}
+
+.center p:nth-of-type(1) {
+	float: right; 
+	margin: 5px 0px; 
+	font-size: 12px;
+}

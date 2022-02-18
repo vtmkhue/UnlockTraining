@@ -1,0 +1,18 @@
+version: '3.9'
+services:
+    nginx-web:
+        image: nginx:latest
+        #Restart container always when run service
+        restart: always
+        ports:
+            - "80:80"
+        volumes:
+            - ./nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
+            - ./code:/code
+        links:
+            - php-code
+    php-code:
+        #Get the newest version of PHP
+        image: php:fpm
+        volumes:
+            - ./code:/code

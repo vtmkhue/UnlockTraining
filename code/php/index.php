@@ -1,77 +1,104 @@
-<?php
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Practise</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../css/style.css" type="text/css">
+    <script language="javascript" src="http://code.jquery.com/jquery-2.0.0.min.js"></script>
+    <script language="javascript">
+        $.ajax({
+            url : '../php/ajax_index.php',
+            type : 'post',
+            data: {
+                getCookie: 1
+            },
+            dataType : 'json',
+            success : function (result){
+                $('#txtInputArray').val(result[0]);
+                $('#arrOption').val(result[1]);
+            }
+        });
 
-include "functions/functions.php";
-
-const FIND_MAX_VALUE = 1;
-const FIND_MIN_VALUE = 2;
-const GET_POSITIVE_NUMBERS = 3;
-const GET_NEGATIVE_NUMBERS = 4;
-
-$strResult = "";
-
-//Homework 1 + add value of this homework to Cookie for Homework 2
-if (isset($_POST["txtInputArray"])) {
-    setcookie("arrNumber", $_POST["txtInputArray"], time() + 300, '/');
-    setcookie("intFindOption", $_POST["arrOption"], time() + 300, '/');
-
-    $strResult = validatedArrayInputValue($_POST["txtInputArray"]);
-    if (!empty($strResult)) {
-        goto endfunction;
-    }
-
-    switch ($_POST["arrOption"]) {
-        case FIND_MAX_VALUE:
-            $strResult = getMaxNumber($_POST["txtInputArray"]);
-            break;
-        case FIND_MIN_VALUE:
-            $strResult = getMinNumber($_POST["txtInputArray"]);
-            break;
-        case GET_POSITIVE_NUMBERS:
-            $strResult = getPositiveNumbers($_POST["txtInputArray"]);
-            break;
-        case GET_NEGATIVE_NUMBERS:
-            $strResult = getNegativeNumbers($_POST["txtInputArray"]);
-            break;
-    }
-
-    if (empty($strResult) && $strResult != "0") {
-        $strResult = "No number found";
-    } else {
-        if (strpos($strResult, ",")) {
-            $strResult = substr($strResult, 0, strlen($strResult) - 2);
+        function findNumber()
+        {
+            $.ajax({
+                url : '../php/ajax_index.php',
+                type : 'post',
+                data: {
+                    txtInputArray: $('#txtInputArray').val(),
+                    arrOption: $('#arrOption').val()
+                },
+                dataType : 'text',
+                success : function (result){
+                    $('#resResult').html(result);
+                }
+            });
         }
-        $strResult = "The result is: " . $strResult . ".";
-    }
 
-    goto endfunction;
-}
+        function drawRectangleStar()
+        {
+            $.ajax({
+                url : '../php/ajax_index.php',
+                type : 'post',
+                data: {
+                    txtHeight: $('#txtHeight').val(),
+                    txtWidth: $('#txtWidth').val()
+                },
+                dataType : 'text',
+                success : function (result){
+                    $('#resResult2').html(result);
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+<header>
+    <h2>This is my homework</h2>
+</header>
 
-//Homework 2
-if (isset($_POST["getCookie"]) && $_POST["getCookie"] == "1") {
-    if (isset($_COOKIE["arrNumber"])) {
-        $returnCookie = [];
-        $returnCookie[0] = $_COOKIE["arrNumber"];
-        $returnCookie[1] = $_COOKIE["intFindOption"];
+<article>
+    <form id="frmSubmit">
+        <h1>Find number + Cookie</h1>
 
-        echo json_encode($returnCookie);
-    }
-}
+        <div><label for="txtInputArray" class="col-2 col-s-12">Array (seperated with comma):</label>
+            <input type="text" class="col-5 col-s-12" id="txtInputArray" name="txtInputArray" value=""><br/>
+        </div><br/>
 
-//Homework 3
-if (isset($_POST["txtHeight"])) {
-    $strResult = validatedRectangleSizeInputValue($_POST["txtHeight"]);
-    if (!empty($strResult)) {
-        goto endfunction;
-    }
+        <div><label for="arrOption" class="col-2 col-s-12">Options:</label>
+            <select class="col-5 col-s-12" id="arrOption" name="arrOption">
+                <option value="1">Max value</option>
+                <option value="2">Min value</option>
+                <option value="3">Positive number</option>
+                <option value="4">Negative number</option>
+            </select><br/>
+        </div><br/>
 
-    $strResult = validatedRectangleSizeInputValue($_POST["txtWidth"]);
-    if (!empty($strResult)) {
-        goto endfunction;
-    }
+        <input type="button" id="btnSubmit" class="submit-button" value="Submit" onclick="findNumber()"><br/>
+        <p id="resResult" class="resMessage"></p>
+    </form>
 
-    $strResult = drawRectangleStar($_POST["txtHeight"], $_POST["txtWidth"]);
-}
+    <hr>
 
+    <form id="frmSubmit2">
+        <h1>Rectangle star</h1>
 
-endfunction:
-echo $strResult;
+        <div><label for="txtHeight" class="col-2 col-s-12">Height:</label>
+            <input type="text" class="col-5 col-s-12" id="txtHeight" name="txtHeight" value=""><br/>
+        </div><br/>
+
+        <div><label for="txtWidth" class="col-2 col-s-12">Width:</label>
+            <input type="text" class="col-5 col-s-12" id="txtWidth" name="txtWidth" value=""><br/>
+        </div><br/>
+
+        <input type="button" id="btnSubmit2" class="submit-button" value="Submit" onclick="drawRectangleStar()"><br/>
+        <pre id="resResult2" class="resMessage"></pre>
+    </form>
+</article>
+
+<footer>
+</footer>
+
+</body>
+</html>

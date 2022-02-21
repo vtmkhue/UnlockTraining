@@ -8,7 +8,7 @@
   <script language="javascript" src="http://code.jquery.com/jquery-2.0.0.min.js"></script>
   <script language="javascript">
     $.ajax({
-      url : '../php/index.php',
+      url : '../php/ajax_index.php',
       type : 'post',
       data: { 
         getCookie: 1
@@ -23,7 +23,7 @@
     function findNumber()
     {
       $.ajax({
-          url : '../php/index.php',
+          url : '../php/ajax_index.php',
           type : 'post',
           data: { 
             txtInputArray: $('#txtInputArray').val(),
@@ -39,7 +39,7 @@
     function drawRectangleStar()
     {
       $.ajax({
-          url : '../php/index.php',
+          url : '../php/ajax_index.php',
           type : 'post',
           data: { 
             txtHeight: $('#txtHeight').val(),

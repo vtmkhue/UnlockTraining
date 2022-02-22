@@ -1,5 +1,7 @@
 * {box-sizing: border-box;}
 
+html { background-color: #f1f1f1; }
+
 body {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 14px;
@@ -12,6 +14,7 @@ header {
   text-align: center;
   font-size: 16px;
   color: white;
+  /* position: fixed; */
 }
 
 header h2 {
@@ -29,6 +32,9 @@ article {
 footer {
   background-color: #0b9822;
   height: 25px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 }
 
 [class*="col-"] {float: left;}
@@ -182,10 +188,11 @@ select:focus {border: 2px solid #555;}
   margin: 6px 0px;
 }
 
-#resResult2 {
+#resRectangleStar {
   font-size: 20px;
   line-height: 11px;
-  /*word-spacing: 3px;*/
+  padding-top: 5px;
+  min-height: auto;
 }
 
 .dis_info {
@@ -273,4 +280,50 @@ table, th, td {
     float: right;
     margin: 5px 0px;
     font-size: 12px;
+}
+
+nav.side-bar {
+  float: left;
+  width: 25%;
+  background: #343a40;
+  height: 100%;
+  position: fixed !important;
+}
+
+/* Style the list inside the menu */
+nav.side-bar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+a.nav-link {
+  padding: 10px !important;
+  background: #343a40;
+  color: #fff;
+  cursor: pointer;
+}
+
+.nav-link:focus:not(.active),
+.nav-link:hover:not(.active) {
+  color: #ffc107 !important;
+}
+
+a.active {
+  background-color: #ffc107;
+  color: #000 !important;
+}
+
+article {
+  float: left;
+  padding: 20px;
+  width: 75%;
+  background-color: #f1f1f1;
+  margin-left: 25%;
+}
+
+/* Clear floats after the columns */
+section::after {
+  content: "";
+  display: table;
+  clear: both;
 }

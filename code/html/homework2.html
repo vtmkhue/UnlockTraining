@@ -1,0 +1,44 @@
+<form id="frmSaveCookie">
+    <h1>Save Cookie</h1>
+
+    <label>Choose your options:</label><br/>
+    <div class="col-4 col-s-12">
+        <input type="radio" name="food" id="chickenfried" value="chickenfried" />
+        <label for="chickenfried">Fried Chicken</label><br/>
+    
+        <input type="radio" name="food" id="hotpot" value="hotpot" />
+        <label for="hotpot">Hot Pot</label><br/>
+    
+        <input type="radio" name="food" id="pizza" value="pizza" />
+        <label for="pizza">Pizza</label><br/>
+    
+        <input type="radio" name="food" id="sushi" value="sushi" />
+        <label for="sushi">Sushi</label><br/>
+    </div>
+    <div class="col-5 col-s-12">
+        <img id="showImage" src="" height="183" width="275" title="Your chosen" alt="Your chosen" style="display: none" />
+    </div>
+</form>
+</section>
+
+<script>
+$(document).ready(function(e){
+    $('input[type="radio"]').click(function(){
+        $.ajax({
+            url : './php/ajax_index.php',
+            type : 'post',
+            data: {
+                saveCookie: $(this).val(),
+            },
+            dataType : 'text',
+            success : function (result){
+                $('#showImage').attr('src','../images/' + result + '.jpg');
+                if ($("#showImage").is(":hidden")) {
+                    $("#showImage").show();
+                }
+            }
+        });
+    });
+});
+</script>
+

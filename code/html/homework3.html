@@ -1,0 +1,35 @@
+<form id="frmDrawStar">
+    <h1>Rectangle star</h1>
+
+    <div><label for="txtHeight" class="col-2 col-s-12">Height:</label>
+        <input type="text" class="col-5 col-s-12" id="txtHeight" name="txtHeight" value=""><br/>
+    </div><br/>
+
+    <div><label for="txtWidth" class="col-2 col-s-12">Width:</label>
+        <input type="text" class="col-5 col-s-12" id="txtWidth" name="txtWidth" value=""><br/>
+    </div><br/>
+
+    <input type="button" id="btnDrawStar" class="submit-button" value="Submit"><br/>
+    <hr>
+    <pre id="resRectangleStar" class="resMessage"></pre>
+</form>
+</section>
+
+<script>
+$(document).ready(function(e){
+    $("#btnDrawStar").click(function () {
+        $.ajax({
+            url : './php/ajax_index.php',
+            type : 'post',
+            data: {
+                txtHeight: $('#txtHeight').val(),
+                txtWidth: $('#txtWidth').val(),
+            },
+            dataType : 'text',
+            success : function (result){
+                $('#resRectangleStar').html(result);
+            }
+        });
+    });
+});
+</script>

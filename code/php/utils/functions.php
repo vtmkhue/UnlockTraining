@@ -5,11 +5,9 @@ function validatedArrayInputValue(string $arrNumber): string
     $errMessage = "";
 
     if (empty($arrNumber)) {
-        $errMessage = "The array cannot be empty.";
-        goto endfunction;
+        return "The array cannot be empty.";
     }
 
-    endfunction:
     return $errMessage;
 }
 
@@ -17,7 +15,7 @@ function validatedRectangleSizeInputValue(string $strSizeValue): string
 {
     $errMessage = "";
 
-    if (empty($strSizeValue)) {
+    if (empty($strSizeValue) && $strSizeValue != "0") {
         $errMessage = "The rectangle size cannot be empty.";
         goto endfunction;
     }
@@ -41,104 +39,65 @@ function validatedRectangleSizeInputValue(string $strSizeValue): string
     return $errMessage;
 }
 
+function getNumberOnly(string $strInput): bool
+{
+    return is_numeric($strInput);
+}
+
 function getMaxNumber(string $strArrayInput): string
 {
     $strArrayInput = preg_replace('/\s+/', '', $strArrayInput);
     $arrGetArrayNumber = explode(",", $strArrayInput);
-    rsort($arrGetArrayNumber);
+    $arrGetArrayNumber = array_filter($arrGetArrayNumber, "getNumberOnly");
 
-    $maxNumber = "";
-
-    for ($i = 0; $i < count($arrGetArrayNumber); $i++) {
-        if (!empty($maxNumber) || $maxNumber == "0") {
-            break;
-        }
-
-        if (!is_numeric($arrGetArrayNumber[$i])) {
-            continue;
-        }
-
-        $maxNumber = $arrGetArrayNumber[$i];
-    }
-
-    return $maxNumber;
+    return max($arrGetArrayNumber);
 }
 
 function getMinNumber(string $strArrayInput): string
 {
     $strArrayInput = preg_replace('/\s+/', '', $strArrayInput);
     $arrGetArrayNumber = explode(",", $strArrayInput);
-    sort($arrGetArrayNumber);
+    $arrGetArrayNumber = array_filter($arrGetArrayNumber, "getNumberOnly");
 
-    $minNumber = "";
-
-    for ($i = 0; $i < count($arrGetArrayNumber); $i++) {
-        if (!empty($minNumber) || $minNumber == "0") {
-            break;
-        }
-
-        if (!is_numeric($arrGetArrayNumber[$i])) {
-            continue;
-        }
-
-        $minNumber = $arrGetArrayNumber[$i];
-    }
-
-    return $minNumber;
+    return min($arrGetArrayNumber);
 }
 
 function getPositiveNumbers(string $strArrayInput): string
 {
     $strArrayInput = preg_replace('/\s+/', '', $strArrayInput);
     $arrGetArrayNumber = explode(",", $strArrayInput);
-    rsort($arrGetArrayNumber);
+    $arrGetArrayNumber = array_filter($arrGetArrayNumber, "getNumberOnly");
+    $arrGetArrayNumber = array_filter($arrGetArrayNumber, function ($value) {
+        return ($value > 0);
+    });
 
-    $strPositiveNumber = "";
-
-    for ($i = 0; $i < count($arrGetArrayNumber); $i++) {
-        if (!is_numeric($arrGetArrayNumber[$i])) {
-            continue;
-        }
-
-        if ($arrGetArrayNumber[$i] <= 0) {
-            break;
-        }
-
-        $strPositiveNumber .= $arrGetArrayNumber[$i] . ", ";
-    }
-
-    return $strPositiveNumber;
+    return implode(", ", $arrGetArrayNumber);
 }
 
 function getNegativeNumbers(string $strArrayInput): string
 {
     $strArrayInput = preg_replace('/\s+/', '', $strArrayInput);
     $arrGetArrayNumber = explode(",", $strArrayInput);
-    sort($arrGetArrayNumber);
+    $arrGetArrayNumber = array_filter($arrGetArrayNumber, "getNumberOnly");
+    $arrGetArrayNumber = array_filter($arrGetArrayNumber, function ($value) {
+        return ($value < 0);
+    });
 
-    $strNegativeNumber = "";
-
-    for ($i = 0; $i < count($arrGetArrayNumber); $i++) {
-        if (!is_numeric($arrGetArrayNumber[$i])) {
-            continue;
-        }
-
-        if (0 <= $arrGetArrayNumber[$i]) {
-            break;
-        }
-
-        $strNegativeNumber .= $arrGetArrayNumber[$i] . ", ";
-    }
-
-    return $strNegativeNumber;
+    return implode(", ", $arrGetArrayNumber);
 }
 
 function drawRectangleStar(int $intHeight, int $intWidth): string
 {
     $strStar = "*";
     $strLineWithFullStar = str_pad($strStar, $intWidth, "*");
+    if ($intHeight == 1) {
+        return $strLineWithFullStar;
+    }
+
     $strLineWithMissStar = str_pad($strStar, ($intWidth - 1), " ");
-    $strLineWithMissStar .= "*";
+    if ($intWidth != 1) {
+        $strLineWithMissStar .= "*";
+    }
 
     $strContent = $strLineWithMissStar;
     for ($i = 1; $i < ($intHeight - 2); $i++) {

@@ -1,0 +1,40 @@
+<form id="frmFindNumber">
+    <h1>Find number</h1>
+
+    <div><label for="txtInputArray" class="col-4 col-s-12">Array (seperated with comma):</label>
+      <input type="text" class="col-5 col-s-12" id="txtInputArray" name="txtInputArray" value=""><br/>
+    </div><br/>
+
+    <div><label for="arrOption" class="col-4 col-s-12">Options:</label>
+      <select class="col-5 col-s-12" id="arrOption" name="arrOption">
+        <option value="1">Max value</option>
+        <option value="2">Min value</option>
+        <option value="3">Positive number</option>
+        <option value="4">Negative number</option>
+      </select><br/>
+    </div><br/>
+
+    <input type="button" id="btnFindNumber" class="submit-button" value="Submit"><br/>
+    <hr>
+    <p id="resFindNumber" class="resMessage"></p>
+</form>
+</section>
+
+<script>
+$(document).ready(function(e){
+  $("#btnFindNumber").click(function () {
+        $.ajax({
+            url : './php/ajax_index.php',
+            type : 'post',
+            data: {
+                arrayNumber: $('#txtInputArray').val(),
+                findOption: $('#arrOption').val(),
+            },
+            dataType : 'text',
+            success : function (result){
+                $('#resFindNumber').html(result);
+            }
+        });
+    });
+});
+</script>

@@ -7,12 +7,11 @@ $(document).ready(function (e) {
         $(".nav-link").removeClass("active");
         $(this).addClass("active");
 
-        var htmlLoading = $(this).text().toLowerCase();
-        htmlLoading = "./html/" + htmlLoading.replace(/ /g, "") + ".html";
+        var htmlLoading = "./html/" + $(this).attr("id");
         $("#loadContent").empty();
         $("#loadContent").load(htmlLoading);
 
-        if ($(this).text() == "Homework 2") {
+        if ($(this).attr("id") == "save_cookie") {
             $.ajax({
                 url : './php/ajax_index.php',
                 type : 'post',

@@ -1,5 +1,5 @@
 <?php include "./html/header.html"; ?>
     <article id="loadContent">
-        <?php include "./html/homework1.html"; ?>
+        <?php include "./html/find_number.html"; ?>
     </article>
 <?php include "./html/footer.html"; ?>

@@ -1,43 +1,44 @@
 <?php
 
-include "utils/functions.php";
+include "utils/DrawRectangle.php";
+include "utils/FindNumber.php";
 
 const FIND_MAX_VALUE = 1;
 const FIND_MIN_VALUE = 2;
 const GET_POSITIVE_NUMBERS = 3;
 const GET_NEGATIVE_NUMBERS = 4;
 
-$strResult = "";
+$showResult = "";
 
 //Homework 1
-if (isset($_POST["txtInputArray"])) {
-    $inputArray = $_POST["txtInputArray"];
-    $arrOption = $_POST["arrOption"];
+if (isset($_POST["arrayNumber"])) {
+    $arrayNumber = $_POST["arrayNumber"];
+    $findOption = $_POST["findOption"];
 
-    $strResult = validatedArrayInputValue($inputArray);
-    if (!empty($strResult)) {
+    $showResult = validatedArrayInputValue($arrayNumber);
+    if (!empty($showResult)) {
         goto endfunction;
     }
 
-    switch ($arrOption) {
+    switch ($findOption) {
         case FIND_MAX_VALUE:
-            $strResult = getMaxNumber($inputArray);
+            $showResult = getMaxNumber($arrayNumber);
             break;
         case FIND_MIN_VALUE:
-            $strResult = getMinNumber($inputArray);
+            $showResult = getMinNumber($arrayNumber);
             break;
         case GET_POSITIVE_NUMBERS:
-            $strResult = getPositiveNumbers($inputArray);
+            $showResult = getPositiveNumbers($arrayNumber);
             break;
         case GET_NEGATIVE_NUMBERS:
-            $strResult = getNegativeNumbers($inputArray);
+            $showResult = getNegativeNumbers($arrayNumber);
             break;
     }
 
-    if (empty($strResult) && $strResult != "0") {
-        $strResult = "No number found";
+    if (empty($showResult) && $showResult != "0") {
+        $showResult = "No number found";
     } else {
-        $strResult = "The result is: " . $strResult . ".";
+        $showResult = "The result is: " . $showResult . ".";
     }
 
     goto endfunction;
@@ -57,22 +58,22 @@ if (isset($_POST["saveCookie"])) {
 }
 
 //Homework 3
-if (isset($_POST["txtHeight"])) {
-    $intHeight = $_POST["txtHeight"];
-    $intWidth = $_POST["txtWidth"];
+if (isset($_POST["height"])) {
+    $height = $_POST["height"];
+    $width = $_POST["width"];
 
-    $strResult = validatedRectangleSizeInputValue($intHeight);
-    if (!empty($strResult)) {
+    $showResult = validatedRectangleSizeInputValue($height);
+    if (!empty($showResult)) {
         goto endfunction;
     }
 
-    $strResult = validatedRectangleSizeInputValue($intWidth);
-    if (!empty($strResult)) {
+    $showResult = validatedRectangleSizeInputValue($width);
+    if (!empty($showResult)) {
         goto endfunction;
     }
 
-    $strResult = drawRectangleStar($intHeight, $intWidth);
+    $showResult = drawRectangleStar($height, $width);
 }
 
 endfunction:
-echo $strResult;
+echo $showResult;

@@ -189,10 +189,10 @@ select:focus {border: 2px solid #555;}
 }
 
 #resRectangleStar {
-  font-size: 20px;
+  /*font-size: 20px;*/
   line-height: 11px;
   padding-top: 5px;
-  min-height: auto;
+  min-height: 200px;
 }
 
 .dis_info {

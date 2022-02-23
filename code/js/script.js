@@ -11,7 +11,7 @@ $(document).ready(function (e) {
         $("#loadContent").empty();
         $("#loadContent").load(htmlLoading);
 
-        if ($(this).attr("id") == "save_cookie") {
+        if ($(this).attr("id") == "save_cookie.html") {
             $.ajax({
                 url : './php/ajax_index.php',
                 type : 'post',

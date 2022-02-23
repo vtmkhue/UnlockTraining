@@ -57,4 +57,3 @@ function getNegativeNumbers(string $stringOfNumber): string
 
     return implode(", ", $arrayNumber);
 }
-

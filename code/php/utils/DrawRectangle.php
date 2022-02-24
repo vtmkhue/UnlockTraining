@@ -14,7 +14,7 @@ function validatedRectangleSizeInputValue(string $rectangleSizeInput): string
         goto endfunction;
     }
 
-    if (str_contains($rectangleSizeInput, ".")) {
+    if (strpos($rectangleSizeInput, ".") !== false) {
         $errMessage = "The rectangle size must be a integer number.";
         goto endfunction;
     }

@@ -13,7 +13,7 @@ $(document).ready(function (e) {
 
         if ($(this).attr("id") == "save_cookie.html") {
             $.ajax({
-                url : './php/ajax_index.php',
+                url : './php/ajax_main.php',
                 type : 'post',
                 data: {
                     getCookie: 1

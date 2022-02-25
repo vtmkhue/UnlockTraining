@@ -1,79 +1,77 @@
 <?php
 
-//include "utils/DrawRectangle.php";
-//include "utils/FindNumber.php";
-//
-//const FIND_MAX_VALUE = 1;
-//const FIND_MIN_VALUE = 2;
-//const GET_POSITIVE_NUMBERS = 3;
-//const GET_NEGATIVE_NUMBERS = 4;
-//
-//$showResult = "";
-//
-////Homework 1
-//if (isset($_POST["arrayNumber"])) {
-//    $arrayNumber = $_POST["arrayNumber"];
-//    $findOption = $_POST["findOption"];
-//
-//    $showResult = validatedArrayInputValue($arrayNumber);
-//    if (!empty($showResult)) {
-//        goto endfunction;
-//    }
-//
-//    switch ($findOption) {
-//        case FIND_MAX_VALUE:
-//            $showResult = getMaxNumber($arrayNumber);
-//            break;
-//        case FIND_MIN_VALUE:
-//            $showResult = getMinNumber($arrayNumber);
-//            break;
-//        case GET_POSITIVE_NUMBERS:
-//            $showResult = getPositiveNumbers($arrayNumber);
-//            break;
-//        case GET_NEGATIVE_NUMBERS:
-//            $showResult = getNegativeNumbers($arrayNumber);
-//            break;
-//    }
-//
-//    if (empty($showResult) && $showResult != "0") {
-//        $showResult = "No number found";
-//    } else {
-//        $showResult = "The result is: " . $showResult . ".";
-//    }
-//
-//    goto endfunction;
-//}
-//
-////Homework 2
-//if (isset($_POST["saveCookie"])) {
-//    setcookie("savedCookie", $_POST["saveCookie"], time() + 300, '/');
-//    echo $_POST["saveCookie"];
-//} elseif (isset($_POST["getCookie"]) && $_POST["getCookie"] == "1") {
-//    $returnCookie = "";
-//    if (isset($_COOKIE["savedCookie"])) {
-//        $returnCookie = $_COOKIE["savedCookie"];
-//    }
-//
-//    echo $returnCookie;
-//}
-//
-////Homework 3
-//if (isset($_POST["height"])) {
-//    $height = $_POST["height"];
-//    $width = $_POST["width"];
-//
-//    $showResult = validatedRectangleSizeInputValue($height);
-//    if (!empty($showResult)) {
-//        goto endfunction;
-//    }
-//
-//    $showResult = validatedRectangleSizeInputValue($width);
-//    if (!empty($showResult)) {
-//        goto endfunction;
-//    }
-//
-//    $showResult = drawRectangleStar($height, $width);
-//}
-//
-//endfunction:
-//echo $showResult;
+include_once "./utils/ConnectDB.php";
+include_once "./Model/TUser.php";
+include_once "./Model/TAccount.php";
+
+include_once "utils/Login.php";
+include_once "utils/Register.php";
+
+//Login
+if (isset($_POST["username"])) {
+    $showResult = "";
+
+    $username = $_POST["username"];
+    $password = $_POST["password"];
+
+    $showResult = validatedUserName($username);
+    if (!empty($showResult)) {
+        goto endfunction;
+    }
+
+    $showResult = validatedPassword($password);
+    if (!empty($showResult)) {
+        goto endfunction;
+    }
+
+    if (loginToPage($username, $password)) {
+        $showResult = "success";
+    } else {
+        $showResult = "Login information is wrong.";
+    }
+
+    endfunction:
+    echo $showResult;
+}
+
+//Register
+if (isset($_POST["name"])) {
+    $insertResult = array();
+
+    $name = $_POST["name"];
+    $birthdayDate = $_POST["birthdayDate"];
+    $gender = $_POST["gender"];
+    $emailAddress = $_POST["emailAddress"];
+    $phoneNumber = $_POST["phoneNumber"];
+    $username = $_POST["newusername"];
+    $password = $_POST["password"];
+    $repassword = $_POST["repassword"];
+
+    array_push($insertResult, validatedFullname($name));
+    array_push($insertResult, validatedUserName($birthdayDate));
+    array_push($insertResult, validatedUserName($emailAddress));
+    array_push($insertResult, validatedUserName($phoneNumber));
+    array_push($insertResult, validatedUserName($username));
+    array_push($insertResult, validatedUserName($password));
+
+    //No error input found
+    if (count($insertResult) == 0) {
+        $paramAccount = array();
+        array_push($paramAccount, $username);
+        array_push($paramAccount, sha1($password));
+        array_push($paramAccount, "3");
+
+        $paramUser = array();
+        array_push($paramUser, $name);
+        array_push($paramUser, $birthdayDate);
+        array_push($paramUser, $gender);
+        array_push($paramUser, $phoneNumber);
+        array_push($paramUser, $emailAddress);
+
+        if (!registerNewUser($paramAccount, $paramUser)) {
+            array_push($insertResult, "Cannot create your account.");
+        }
+    }
+
+    echo json_encode($insertResult);
+}

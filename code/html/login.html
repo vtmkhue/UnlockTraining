@@ -67,15 +67,15 @@
     $(document).ready(function(e){
       $("#btnLogin").click(function() {
         $.ajax({
-          url : './php/ajax_index.php',
-          type : 'post',
+          url: './php/ajax_index.php',
+          type: 'post',
           data: {
             username: $('#username').val(),
             password: $('#password').val(),
           },
           dataType : 'text',
           success : function (result){
-            if (!result) {
+            if (result == "success") {
               window.location.href = "../main.php";
             } else {
               $('#errlogin').text(result);

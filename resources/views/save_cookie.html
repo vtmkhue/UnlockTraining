@@ -25,14 +25,14 @@
 $(document).ready(function(e){
     $('input[type="radio"]').click(function(){
         $.ajax({
-            url : './php/ajax_main.php',
+            url : './../../routes/ajax_main.php',
             type : 'post',
             data: {
                 saveCookie: $(this).val(),
             },
             dataType : 'text',
             success : function (result){
-                $('#showImage').attr('src','../images/' + result + '.jpg');
+                $('#showImage').attr('src','../../resources/images/' + result + '.jpg');
                 if ($("#showImage").is(":hidden")) {
                     $("#showImage").show();
                 }

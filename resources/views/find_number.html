@@ -24,7 +24,7 @@
 $(document).ready(function(e){
   $("#btnFindNumber").click(function () {
         $.ajax({
-            url : './php/ajax_main.php',
+            url : './../../routes/ajax_main.php',
             type : 'post',
             data: {
                 arrayNumber: $('#txtInputArray').val(),

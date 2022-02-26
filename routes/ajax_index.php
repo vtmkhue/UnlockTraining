@@ -35,6 +35,9 @@ if (isset($_POST["name"])) {
 
     $name = $_POST["name"];
     $birthdayDate = $_POST["birthdayDate"];
+    if (!empty($birthdayDate)) {
+        $birthdayDate = date("Y-m-d", strtotime(str_replace('/', '-', $birthdayDate)));
+    }
     $gender = $_POST["gender"];
     $emailAddress = $_POST["emailAddress"];
     $phoneNumber = $_POST["phoneNumber"];
@@ -42,17 +45,57 @@ if (isset($_POST["name"])) {
     $password = $_POST["password"];
     $repassword = $_POST["repassword"];
 
-    array_push($insertResult, validatedFullname($name));
-    array_push($insertResult, validatedBirthday($birthdayDate));
-    array_push($insertResult, validatedUserName($emailAddress));
-    array_push($insertResult, validatedUserName($phoneNumber));
-    array_push($insertResult, validatedUserName($username));
-    array_push($insertResult, validatedUserName($password));
+    //Validate all input value
+    $isError = false;
+    $errorInputMessage = validatedFullname($name);
+    array_push($insertResult, $errorInputMessage);
+    if (!empty($errorInputMessage)) {
+        $isError = true;
+    }
+    
+    $errorInputMessage = validatedBirthday($birthdayDate);
+    array_push($insertResult, $errorInputMessage);
+    if (!empty($errorInputMessage)) {
+        $isError = true;
+    }
+
+    $errorInputMessage = validatedGender($gender);
+    array_push($insertResult, $errorInputMessage);
+    if (!empty($errorInputMessage)) {
+        $isError = true;
+    }
+
+    $errorInputMessage = validatedEmail($emailAddress);
+    array_push($insertResult, $errorInputMessage);
+    if (!empty($errorInputMessage)) {
+        $isError = true;
+    }
+
+    $errorInputMessage = validatedPhoneNumber($phoneNumber);
+    array_push($insertResult, $errorInputMessage);
+    if (!empty($errorInputMessage)) {
+        $isError = true;
+    }
+
+    $errorInputMessage = validatedNewUsername($username);
+    array_push($insertResult, $errorInputMessage);
+    if (!empty($errorInputMessage)) {
+        $isError = true;
+    }
+
+    $errorInputMessage = validatedNewPassword($password, $repassword);
+    array_push($insertResult, $errorInputMessage);
+    if (!empty($errorInputMessage)) {
+        $isError = true;
+    }
 
     //No error input found
-    if (count($insertResult) == 0) {
+    if (!$isError) {
+        // unset($insertResult);
+        // $insertResult = array();
+
         $paramAccount = array();
-        array_push($paramAccount, $username);
+        array_push($paramAccount, strtolower($username));
         array_push($paramAccount, sha1($password));
         array_push($paramAccount, "3");
 
@@ -64,7 +107,8 @@ if (isset($_POST["name"])) {
         array_push($paramUser, $emailAddress);
 
         if (!registerNewUser($paramAccount, $paramUser)) {
-            array_push($insertResult, "Cannot create your account.");
+            echo json_encode([0 => "Cannot create your account."]);
+            // array_push($insertResult, "Cannot create your account.");
         }
     }
 

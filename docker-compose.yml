@@ -1,4 +1,4 @@
-version: '3'
+version: '3.9'
 services:
     nginx-web:
         image: nginx:latest
@@ -20,7 +20,7 @@ services:
             dockerfile: Dockerfile
 #        image: digitalocean.com/php
         #Get the newest version of PHP
-        image: php:7.3-fpm
+        image: php:7.4-fpm
 #        tty: true
 #        environment:
 #            SERVICE_NAME: app
@@ -34,15 +34,17 @@ services:
     db:
         image: mysql:latest
         # container_name: mysql-db
+        command: mysqld --default-authentication-plugin=mysql_native_password
         restart: always
         tty: true
         ports:
-            - "3306:3306"
+            - "3308:3306"
         environment:
             - MYSQL_DATABASE=testdb
             - MYSQL_ROOT_PASSWORD=password
-            - MYSQL_USER=khuevo
+            - MYSQL_USER=root
             - MYSQL_PASSWORD=password
+            # - MYSQL_DEFAULT_AUTH=mysql_native_password
         volumes:
             - ./database:/var/lib/mysql
     php-myadmin:

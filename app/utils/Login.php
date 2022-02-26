@@ -32,15 +32,15 @@ function loginToPage(string $username, string $password): bool
         return false;
     }
 
-    $getNameOfUser = getUserInfo($getLoginInfo["account_id"]);
+    $getNameOfUser = getUserInfo($getLoginInfo[0]["account_id"]);
     if (count($getNameOfUser) == 0) {
         return false;
     }
 
     setcookie("username", $username, time() + 300, '/');
-    setcookie("account", $getLoginInfo["account_id"], time() + 300, '/');
-    setcookie("rule", $getLoginInfo["rule"], time() + 300, '/');
-    setcookie("name", $getNameOfUser["name"], time() + 300, '/');
+    setcookie("account", $getLoginInfo[0]["account_id"], time() + 300, '/');
+    setcookie("rule", $getLoginInfo[0]["rule"], time() + 300, '/');
+    setcookie("name", $getNameOfUser[0]["name"], time() + 300, '/');
     setcookie("choose", "0", time() + 300, '/');
 
     return true;

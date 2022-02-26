@@ -45,3 +45,19 @@
 #btnBack {
     margin-left: 20px;
 }
+
+/* Adapts a floating label for use with a left-handed input group icon */
+.form-floating > .bi-calendar-date + .datepicker_input + label {
+    padding-left: 3.5rem;
+    z-index: 3;
+}
+
+#nav-special {
+    float: right !important; 
+    background-color: #0b9822;
+}
+
+.dropdown-menu[data-bs-popper] {
+    left: auto !important;
+    right: 0 !important;
+}

@@ -2,19 +2,49 @@
 
 /**
  * @param string $username
+ * @return bool
+ */
+function isUsernameExisted(string $username): bool
+{
+    try {
+        $sql = "SELECT rule FROM taccount WHERE username = :username";
+        $param = array(
+            ':username'  => $username
+        );
+
+        $getAccountInfo = selectDataFromDB($sql, $param);
+        if (count($getAccountInfo) == 0) {
+            return false;
+        }
+    } catch (Exception $e) {
+        /* Write error to log ... */
+    }
+
+    return true;
+}
+
+/**
+ * @param string $username
  * @param string $password
  * @return array<string>
  */
 function getAccountInfo(string $username, string $password): array
 {
-    $sql = "SELECT account_id, rule FROM taccount WHERE username = :username AND password = :password AND delete_flag = 0";
-    $param = array(
-        ':username'  => $username,
-        ':password' => sha1($password),
-    );
+    $getAccountInfo = [];
 
-    $getAccountInfo = selectDataFromDB($sql, $param);
-    if (count($getAccountInfo) == 0) {
+    try {
+        $sql = "SELECT account_id, rule FROM taccount WHERE username = :username AND password = :password AND delete_flag = 0";
+        $param = array(
+            ':username'  => $username,
+            ':password' => sha1($password),
+        );
+
+        $getAccountInfo = selectDataFromDB($sql, $param);
+        if (count($getAccountInfo) == 0) {
+            return $getAccountInfo;
+        }
+    } catch (Exception $e) {
+        /* Write error to log ... */
         return [];
     }
 
@@ -23,27 +53,58 @@ function getAccountInfo(string $username, string $password): array
 
 /**
  * @param array<array<string>> $param
- * @return integer
+ * @return array<int>
  */
-function insertNewAccount(array $param): int
+function insertNewAccount(array $param): array
 {
-    $newIDAfterInsert = 0;
-    $allInsertValue = [];
+    $newIDAfterInsert = [];
 
-    foreach ($param as $row) {
-        $addKey = [
-            ":username" => $row[0],
-            ":password" => $row[1],
-            ":rule" => $row[2],
-        ];
+    try {
+        $allInsertValue = [];
+        foreach ($param as $row) {
+            $addKey = [
+                ":username" => $row[0],
+                ":password" => $row[1],
+                ":rule" => $row[2],
+            ];
 
-        array_push($allInsertValue, $addKey);
+            array_push($allInsertValue, $addKey);
+        }
+
+        if (count($allInsertValue) <= 0) {
+            return $newIDAfterInsert;
+        }
+
+        $newIDAfterInsert = insertDataToDB("taccount", $allInsertValue);
+    } catch (Exception $e) {
+        /* Write error to log ... */
+        return [];
     }
 
-    if (count($allInsertValue) <= 0) {
-        return $newIDAfterInsert;
-    }
-
-    $newIDAfterInsert = insertDataToDB("taccount", $allInsertValue);
     return $newIDAfterInsert;
+}
+
+/**
+ * @param array<string> $paramKey
+ * @return bool
+ */
+function deleteAccount(array $paramKey): bool
+{
+    $isDelete = false;
+
+    try {
+        if (count($paramKey) <= 0) {
+            return $isDelete;
+        }
+    
+        $conditionKeyToDelete = [
+            ":account_id" => $paramKey[0],
+        ];
+        
+        $isDelete = deleteDataFromDB("taccount", $conditionKeyToDelete);
+    } catch (Exception $e) {
+        /* Write error to log ... */
+    }
+
+    return $isDelete;
 }

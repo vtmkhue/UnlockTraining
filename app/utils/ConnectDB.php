@@ -12,7 +12,9 @@ function openDBConnect(): PDO
         // set the PDO error mode to exception
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     } catch (PDOException $e) {
+        /* Write error to log ... */
         echo "Connection failed: " . $e->getMessage();
+        $conn = null;
     }
 
     return $conn;
@@ -45,19 +47,20 @@ function selectDataFromDB(string $query, array $param): array
         }
 
         //Execute SQL statement
-        $isSuccess = $stmt->execute();
-        if (!$isSuccess) {
-            return [];
+        if ($stmt->execute()) {
+            //Get value
+            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            $result = $stmt->fetchAll();
         }
-
-        //Get value
-        $stmt->setFetchMode(PDO::FETCH_ASSOC);
-        $result = $stmt->fetchAll();
-
+    } catch (PDOException $e) {
+        /* Write error to log ... */
+        echo "Error when select data from Database: " . $e->getMessage();
+        //Reset array
+        unset($result);
+        $result = [];
+    } finally {
         //Close connection
         closeDBConnect($conn);
-    } catch (PDOException $e) {
-        echo "Error when select data from Database: " . $e->getMessage();
     }
 
     return $result;
@@ -66,11 +69,11 @@ function selectDataFromDB(string $query, array $param): array
 /**
  * @param string $table
  * @param array<array<string>> $param
- * @return integer
+ * @return array<int>
  */
-function insertDataToDB(string $table, array $param = [[]]): int
+function insertDataToDB(string $table, array $param = [[]]): array
 {
-    $newIDAfterInsert = 0;
+    $newIDAfterInsert = [];
 
     try {
         //Open connection
@@ -84,15 +87,17 @@ function insertDataToDB(string $table, array $param = [[]]): int
 
         foreach ($param as $row) {
             $stmt->execute($row);
+            array_push($newIDAfterInsert, $conn->lastInsertId());
         }
-
-        $newIDAfterInsert = $conn->lastInsertId();
-
+    } catch (PDOException $e) {
+        /* Write error to log ... */
+        echo "Error when insert data to Database: " . $e->getMessage();
+        //Reset array
+        unset($newIDAfterInsert);
+        $newIDAfterInsert = [];
+    } finally {
         //Close connection
         closeDBConnect($conn);
-    } catch (PDOException $e) {
-        echo "Error when insert data to Database: " . $e->getMessage();
-        $newIDAfterInsert = 0;
     }
 
     return $newIDAfterInsert;
@@ -106,7 +111,7 @@ function insertDataToDB(string $table, array $param = [[]]): int
  */
 function updateDataFromDB(string $table, array $key, array $param): bool
 {
-    $isSuccess = true;
+    $isSuccess = false;
 
     try {
         //Open connection
@@ -140,12 +145,12 @@ function updateDataFromDB(string $table, array $key, array $param): bool
         }
 
         $isSuccess = $stmt->execute();
-
+    } catch (PDOException $e) {
+        /* Write error to log ... */
+        echo "Error when update data from Database: " . $e->getMessage();
+    } finally {
         //Close connection
         closeDBConnect($conn);
-    } catch (PDOException $e) {
-        echo "Error when update data from Database: " . $e->getMessage();
-        $isSuccess = false;
     }
 
     return $isSuccess;
@@ -158,7 +163,7 @@ function updateDataFromDB(string $table, array $key, array $param): bool
  */
 function deleteDataFromDB(string $table, array $key): bool
 {
-    $isSuccess = true;
+    $isSuccess = false;
 
     try {
         //Open connection
@@ -182,12 +187,12 @@ function deleteDataFromDB(string $table, array $key): bool
         }
 
         $isSuccess = $stmt->execute();
-
+    } catch (PDOException $e) {
+        /* Write error to log ... */
+        echo "Error while delete data from Database: " . $e->getMessage();
+    } finally {
         //Close connection
         closeDBConnect($conn);
-    } catch (PDOException $e) {
-        echo "Error while delete data from Database: " . $e->getMessage();
-        $isSuccess = false ;
     }
 
     return $isSuccess;

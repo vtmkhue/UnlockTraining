@@ -1,6 +1,6 @@
 <?php
 
-$showResult = "";
+$rectangleStar = "";
 
 $height = "";
 $width = "";
@@ -10,15 +10,15 @@ if (isset($_POST["height"])) {
     $height = $_POST["height"];
     $width = $_POST["width"];
 
-    $showResult = validatedRectangleSizeInputValue($height);
-    if (!empty($showResult)) {
+    $rectangleStar = validatedRectangleSizeInputValue($height);
+    if (!empty($rectangleStar)) {
         return;
     }
 
-    $showResult = validatedRectangleSizeInputValue($width);
-    if (!empty($showResult)) {
+    $rectangleStar = validatedRectangleSizeInputValue($width);
+    if (!empty($rectangleStar)) {
         return;
     }
 
-    $showResult = drawRectangleStar($height, $width);
+    $rectangleStar = drawRectangleStar($height, $width);
 }

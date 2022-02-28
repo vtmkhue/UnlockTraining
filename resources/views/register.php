@@ -34,7 +34,7 @@
                     <div class="col-12">
                       <div class="form-outline">
                         <label class="form-label" for="name">Full name</label>
-                        <input type="text" id="name" name="name" class="form-control form-control-lg" value="<?php echo $name; ?>" />
+                        <input type="text" id="name" name="name" class="form-control form-control-lg" value="<?php echo $fullname; ?>" />
                       </div>
                       <p id="errname" class="errMessage"><?php echo $errName; ?></p>
                     </div>

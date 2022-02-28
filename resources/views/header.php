@@ -1,7 +1,7 @@
 <?php 
 
 if (!isset($_SESSION["loginUser"]) || !isset($_COOKIE[$_SESSION["loginUser"]])) {
-    header("Location: index.php?lo=1");
+  header("Location: index.php?logout=1");
 } else {
   $loginCookieSave = json_decode($_COOKIE[$_SESSION["loginUser"]], true);
 }
@@ -47,7 +47,7 @@ if (!isset($_SESSION["loginUser"]) || !isset($_COOKIE[$_SESSION["loginUser"]])) 
                             echo '<li><a id="UserManagement" class="dropdown-item">Manage users</a></li>';
                         } ?>
                       <!-- <li><a id="Info" class="dropdown-item">Info</a></li> -->
-                      <li><a id="Logout" href="index.php?lo=1" class="dropdown-item">Logout</a></li>
+                      <li><a id="Logout" href="index.php?logout=1" class="dropdown-item">Logout</a></li>
                     </ul>
                   </li>
                 </ul>
@@ -60,13 +60,13 @@ if (!isset($_SESSION["loginUser"]) || !isset($_COOKIE[$_SESSION["loginUser"]])) 
         <nav class="side-bar">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a href="index.php?view=fn" class="nav-link <?php echo (isset($_GET["view"]) && $_GET["view"] == "fn") ? "active" : ""; ?>">Find number</a>
+                    <a href="index.php?view=findnumber" class="nav-link <?php echo (isset($_GET["view"]) && $_GET["view"] == "findnumber") ? "active" : ""; ?>">Find number</a>
                 </li>
                 <li class="nav-item">
-                    <a href="index.php?view=sc" class="nav-link <?php echo (isset($_GET["view"]) && $_GET["view"] == "sc") ? "active" : ""; ?>">Save Cookie</a>
+                    <a href="index.php?view=savecookie" class="nav-link <?php echo (isset($_GET["view"]) && $_GET["view"] == "savecookie") ? "active" : ""; ?>">Save Cookie</a>
                 </li>
                 <li class="nav-item">
-                    <a href="index.php?view=drs" class="nav-link <?php echo (isset($_GET["view"]) && $_GET["view"] == "drs") ? "active" : ""; ?>">Draw rectangle star</a>
+                    <a href="index.php?view=drawrectangle" class="nav-link <?php echo (isset($_GET["view"]) && $_GET["view"] == "drawrectangle") ? "active" : ""; ?>">Draw rectangle star</a>
                 </li>
             </ul>
         </nav>

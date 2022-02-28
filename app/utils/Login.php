@@ -44,14 +44,20 @@ function loginToPage(string $username, string $password): bool
         return false;
     }
 
-    $_SESSION["loginUser"] = $username;
+    $_SESSION["loginUser"] = sha1($username);
     $saveInfoToCookie = [
         "account" => $getLoginInfo[0]["account_id"],
         "rule" => $getLoginInfo[0]["rule"],
         "name" => $getNameOfUser[0]["name"],
         "choose" => "0",
     ];
-    saveLoginCookie($username, $saveInfoToCookie);
+    // $saveInfoToCookie = [
+    //     "account" => "1",
+    //     "rule" => "3",
+    //     "name" => "Khuê Võ",
+    //     "choose" => "0",
+    // ];
+    saveLoginCookie($_SESSION["loginUser"], $saveInfoToCookie);
 
     return true;
 }

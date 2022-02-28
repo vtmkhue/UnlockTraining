@@ -1,7 +1,7 @@
 <?php
 
-$imageLoad = "";
-$showImage = " style='display: none;' ";
+$urlImageName = "";
+$displayImage = " style='display: none;' ";
 
 //Save cookie when choosing option
 if (isset($_POST["food"])) {
@@ -11,14 +11,14 @@ if (isset($_POST["food"])) {
 
     setcookie($_SESSION["loginUser"], json_encode($loginCookieSave), strtotime('+30 days'));
 
-    $imageLoad = $_POST["food"];
-    $showImage = "";
+    $urlImageName = $_POST["food"];
+    $displayImage = "";
 
 } else if (isset($_SESSION["loginUser"]) && isset($_COOKIE[$_SESSION["loginUser"]])) {
     $loginCookieSave = json_decode($_COOKIE[$_SESSION["loginUser"]], true);
 
     if ($loginCookieSave["choose"] != "0") {
-        $imageLoad = $loginCookieSave["choose"];
-        $showImage = "";
+        $urlImageName = $loginCookieSave["choose"];
+        $displayImage = "";
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-$name = "";
+$fullname = "";
 $birthdayDate = "";
 $gender = "1";
 $emailAddress = "";
@@ -20,7 +20,7 @@ $successInsert = false;
 //Register
 if (isset($_POST["name"])) {
     //Get value from Form
-    $name = $_POST["name"];
+    $fullname = $_POST["name"];
     $birthdayDate = $_POST["birthdayDate"];
     $convertFormatBOD = "";
     if (!empty($birthdayDate)) {
@@ -36,7 +36,7 @@ if (isset($_POST["name"])) {
     //Validate all input value
     $isError = false;
 
-    $errName = validatedFullname($name);
+    $errName = validatedFullname($fullname);
     if (!empty($errName)) {
         $isError = true;
     }
@@ -79,7 +79,7 @@ if (isset($_POST["name"])) {
         array_push($paramAccount, "3");
 
         $paramUser = array();
-        array_push($paramUser, $name);
+        array_push($paramUser, $fullname);
         array_push($paramUser, $convertFormatBOD);
         array_push($paramUser, $gender);
         array_push($paramUser, $phoneNumber);

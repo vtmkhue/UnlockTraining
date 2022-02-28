@@ -18,7 +18,7 @@ RUN apt update && apt install -y \
         libpng-dev libxml2-dev libcurl4-gnutls-dev
 
 #Lib mysqli
-RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
+# RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
 
 # RUN docker-php-ext-install -j$(nproc) mysqli \
 #     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \

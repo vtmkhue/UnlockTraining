@@ -2,13 +2,11 @@
 
 function validatedArrayInputValue(string $arrayNumber): string
 {
-    $errMessage = "";
-
     if (empty($arrayNumber)) {
         return "The array cannot be empty.";
     }
 
-    return $errMessage;
+    return "";
 }
 
 function getNumberOnly(string $value): bool

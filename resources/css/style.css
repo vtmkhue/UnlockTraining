@@ -22,12 +22,6 @@ header h2 {
   padding: 10px;
 }
 
-article {
-  padding: 20px;
-  background-color: #f1f1f1;
-  height: auto; /* only for demonstration, should be removed */
-}
-
 /* Style the footer */
 footer {
   background-color: #0b9822;
@@ -314,10 +308,11 @@ a.active {
   color: #000 !important;
 }
 
-article {
+.my-article {
   float: left;
   padding: 20px;
   width: 75%;
+  height: auto; /* only for demonstration, should be removed */
   background-color: #f1f1f1;
   margin-left: 25%;
 }

@@ -1,28 +1,35 @@
 <?php
 
-//include_once "../Model/TUser.php";
-//include_once "../Model/TAccount.php";
-
 function validatedUserName(string $username): string
 {
-    $errMessage = "";
-
     if (empty($username)) {
         return "Username cannot be empty.";
     }
 
-    return $errMessage;
+    return "";
 }
 
 function validatedPassword(string $password): string
 {
-    $errMessage = "";
-
     if (empty($password)) {
         return "Password cannot be empty.";
     }
 
-    return $errMessage;
+    return "";
+}
+
+/**
+ * @param string $key
+ * @param array<string> $paramValue
+ * @return void
+ */
+function saveLoginCookie(string $key, array $paramValue) : void
+{
+    if (isset($_COOKIE[$key])) {
+        $_COOKIE[$key] = json_encode($paramValue);
+    } else {
+        setcookie($key, json_encode($paramValue), strtotime('+30 days'));
+    }
 }
 
 function loginToPage(string $username, string $password): bool
@@ -37,11 +44,14 @@ function loginToPage(string $username, string $password): bool
         return false;
     }
 
-    setcookie("username", $username, time() + 300, '/');
-    setcookie("account", $getLoginInfo[0]["account_id"], time() + 300, '/');
-    setcookie("rule", $getLoginInfo[0]["rule"], time() + 300, '/');
-    setcookie("name", $getNameOfUser[0]["name"], time() + 300, '/');
-    setcookie("choose", "0", time() + 300, '/');
+    $_SESSION["loginUser"] = $username;
+    $saveInfoToCookie = [
+        "account" => $getLoginInfo[0]["account_id"],
+        "rule" => $getLoginInfo[0]["rule"],
+        "name" => $getNameOfUser[0]["name"],
+        "choose" => "0",
+    ];
+    saveLoginCookie($username, $saveInfoToCookie);
 
     return true;
 }

@@ -3,3 +3,5 @@ Notice.txt
 vendor
 .github
 database
+routes
+storage

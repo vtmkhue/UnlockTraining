@@ -28,7 +28,7 @@ function getUserInfo(string $account): array
 
 /**
  * @param array<array<string>> $param
- * @return array<int>
+ * @return array<string>
  */
 function insertNewUser(array $param): array
 {

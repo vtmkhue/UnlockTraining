@@ -1,4 +1,4 @@
-version: '3.9'
+version: '3'
 services:
     nginx-web:
         image: nginx:latest
@@ -9,14 +9,14 @@ services:
             - "80:80"
         volumes:
             - ./nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
-            - ./:/var/www/html/
+            - ./public:/var/www/html/public
         links:
             - php-code
     php-code:
         depends_on:
             - db
         build:
-#            context: .
+            context: .
             dockerfile: Dockerfile
 #        image: digitalocean.com/php
         #Get the newest version of PHP
@@ -27,23 +27,24 @@ services:
 #            SERVICE_TAGS: dev
 #        working_dir: /code
         volumes:
-            - ./:/var/www/html/
+            - ./:/var/www/html
             - ./storage/php/local.ini:/usr/local/etc/php/conf.d/local.ini
         links:
             - db
     db:
         image: mysql:latest
         # container_name: mysql-db
-        command: mysqld --default-authentication-plugin=mysql_native_password
+        # command: mysqld --default-authentication-plugin=mysql_native_password
         restart: always
         tty: true
         ports:
-            - "3308:3306"
+            - "3306:3306"
         environment:
             - MYSQL_DATABASE=testdb
             - MYSQL_ROOT_PASSWORD=password
             - MYSQL_USER=root
             - MYSQL_PASSWORD=password
+            - MYSQL_TCP_PORT=3306
             # - MYSQL_DEFAULT_AUTH=mysql_native_password
         volumes:
             - ./database:/var/lib/mysql
@@ -57,5 +58,5 @@ services:
         environment:
             - MYSQL_ROOT_PASSWORD=password
             - PMA_HOST=db
-        links:
-            - db
+        # links:
+        #     - db

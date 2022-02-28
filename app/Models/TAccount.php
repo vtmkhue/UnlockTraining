@@ -53,7 +53,7 @@ function getAccountInfo(string $username, string $password): array
 
 /**
  * @param array<array<string>> $param
- * @return array<int>
+ * @return array<string>
  */
 function insertNewAccount(array $param): array
 {

@@ -2,30 +2,23 @@
 
 function validatedRectangleSizeInputValue(string $rectangleSizeInput): string
 {
-    $errMessage = "";
-
     if (empty($rectangleSizeInput) && $rectangleSizeInput != "0") {
-        $errMessage = "The rectangle size cannot be empty.";
-        goto endfunction;
+        return "The rectangle size cannot be empty.";
     }
 
     if (!is_numeric($rectangleSizeInput)) {
-        $errMessage = "The rectangle size must be a number.";
-        goto endfunction;
+        return "The rectangle size must be a number.";
     }
 
     if (strpos($rectangleSizeInput, ".") !== false) {
-        $errMessage = "The rectangle size must be a integer number.";
-        goto endfunction;
+        return "The rectangle size must be a integer number.";
     }
 
     if ($rectangleSizeInput <= 0) {
-        $errMessage = "The rectangle size must be a positive integer number.";
-        goto endfunction;
+        return "The rectangle size must be a positive integer number.";
     }
 
-    endfunction:
-    return $errMessage;
+    return "";
 }
 
 function drawRectangleStar(int $height, int $width): string
@@ -41,10 +34,10 @@ function drawRectangleStar(int $height, int $width): string
         $lineWithMissStar .= "*";
     }
 
-    $fullLineContent = $lineWithMissStar;
-    for ($i = 1; $i < ($height - 2); $i++) {
+    $fullLineContent = "";
+    for ($i = 1; $i < ($height - 1); $i++) {
         $fullLineContent .= "<br/>" . $lineWithMissStar;
     }
 
-    return $lineWithFullStar . "<br/>" . $fullLineContent . "<br/>" . $lineWithFullStar;
+    return $lineWithFullStar . $fullLineContent . "<br/>" . $lineWithFullStar;
 }

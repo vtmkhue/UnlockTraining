@@ -6,8 +6,6 @@
  */
 function validatedFullname(string $fullname): string
 {
-    $errMessage = "";
-
     if (empty($fullname) && $fullname != "0") {
         return "Full name cannot be empty.";
     }
@@ -16,7 +14,7 @@ function validatedFullname(string $fullname): string
         return "Your full name is too long.";
     }
 
-    return $errMessage;
+    return "";
 }
 
 /**
@@ -25,9 +23,8 @@ function validatedFullname(string $fullname): string
  */
 function validatedBirthday(string $birthday): string
 {
-    $errMessage = "";
     if (empty($birthday) && $birthday != "0") {
-        return $errMessage;
+        return "";
     }
 
     $today = new DateTime();
@@ -38,7 +35,7 @@ function validatedBirthday(string $birthday): string
         return "Your birthday value is invalid.";
     }
 
-    return $errMessage;
+    return "";
 }
 
 /**
@@ -47,8 +44,6 @@ function validatedBirthday(string $birthday): string
  */
 function validatedGender(string $gender): string
 {
-    $errMessage = "";
-
     if (empty($gender)) {
         return "Gender cannot be empty.";
     }
@@ -58,7 +53,7 @@ function validatedGender(string $gender): string
         return "Value of gender was wrong.";
     }
 
-    return $errMessage;
+    return "";
 }
 
 /**
@@ -67,9 +62,8 @@ function validatedGender(string $gender): string
  */
 function validatedEmail(string $email): string
 {
-    $errMessage = "";
     if (empty($email) && $email != "0") {
-        return $errMessage;
+        return "";
     }
 
     if (strlen($email) >= 50) {
@@ -80,7 +74,7 @@ function validatedEmail(string $email): string
         return "Format of email is wrong.";
     }
 
-    return $errMessage;
+    return "";
 }
 
 /**
@@ -89,8 +83,6 @@ function validatedEmail(string $email): string
  */
 function validatedPhoneNumber(string $phone): string
 {
-    $errMessage = "";
-
     if (strlen($phone) >= 20) {
         return "Phone number is too long.";
     }
@@ -99,7 +91,7 @@ function validatedPhoneNumber(string $phone): string
         return "Phone number can only consist of numbers.";
     }
 
-    return $errMessage;
+    return "";
 }
 
 /**
@@ -108,8 +100,6 @@ function validatedPhoneNumber(string $phone): string
  */
 function validatedNewUsername(string $username): string
 {
-    $errMessage = "";
-
     if (empty($username) && $username != "0") {
         return "Username cannot be empty.";
     }
@@ -129,7 +119,7 @@ function validatedNewUsername(string $username): string
         return "Username is already have.";
     }
 
-    return $errMessage;
+    return "";
 }
 
 /**
@@ -139,13 +129,11 @@ function validatedNewUsername(string $username): string
  */
 function validatedNewPassword(string $password, string $repassword): string
 {
-    $errMessage = "";
-
     if (empty($password) && $password != "0") {
         return "Password cannot be empty.";
     }
 
-    if (strlen($password) > 20 && strlen($password) < 8) {
+    if (strlen($password) > 20 || strlen($password) < 8) {
         return "Your password must be more than 8 and less than 20 characters.";
     }
 
@@ -161,7 +149,7 @@ function validatedNewPassword(string $password, string $repassword): string
         return "Repeat password is different with password.";
     }
 
-    return $errMessage;
+    return "";
 }
 
 /**
@@ -181,7 +169,8 @@ function registerNewUser(array $paramAccount, array $paramUser): bool
 
         $newUserId = insertNewUser([$paramUser]);
         if (count($newUserId) == 0) {
-            deleteAccount([$newAccountId[0]]);
+            $newIDInsert = $newAccountId[0];
+            deleteAccount([$newIDInsert]);
             return false;
         }
     } catch (Exception $e) {

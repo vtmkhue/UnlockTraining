@@ -53,11 +53,28 @@
 }
 
 #nav-special {
-    float: right !important; 
+    float: right !important;
     background-color: #0b9822;
 }
 
 .dropdown-menu[data-bs-popper] {
     left: auto !important;
     right: 0 !important;
+}
+
+.user-edit {
+    padding-right: 20px;
+    cursor: pointer;
+    color: #00f;
+}
+
+.user-delete {
+    padding-left: 20px;
+    cursor: pointer;
+    color: #f00;
+}
+
+.btn-disable {
+    cursor: default;
+    color: #808080 !important;
 }

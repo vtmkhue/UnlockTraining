@@ -40,7 +40,7 @@ if (isset($_POST["name"])) {
     if (!empty($errName)) {
         $isError = true;
     }
-    
+
     $errBirthday = validatedBirthday($convertFormatBOD);
     if (!empty($errBirthday)) {
         $isError = true;

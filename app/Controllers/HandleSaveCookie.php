@@ -13,8 +13,7 @@ if (isset($_POST["food"])) {
 
     $urlImageName = $_POST["food"];
     $displayImage = "";
-
-} else if (isset($_SESSION["loginUser"]) && isset($_COOKIE[$_SESSION["loginUser"]])) {
+} elseif (isset($_SESSION["loginUser"]) && isset($_COOKIE[$_SESSION["loginUser"]])) {
     $loginCookieSave = json_decode($_COOKIE[$_SESSION["loginUser"]], true);
 
     if ($loginCookieSave["choose"] != "0") {

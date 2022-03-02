@@ -23,8 +23,8 @@
       <img id="showImage" height="183" width="275" title="Your chosen" alt="Your chosen" 
         <?php echo $displayImage;
         if (!empty($urlImageName)) {
-          $image = "../resources/images/" . $urlImageName . ".jpg";
-          echo " src='data:image/jpg;base64," . base64_encode(file_get_contents($image)) . "'";
+            $image = "../resources/images/" . $urlImageName . ".jpg";
+            echo " src='data:image/jpg;base64," . base64_encode(file_get_contents($image)) . "'";
         } ?> />
     </div>
   </form>

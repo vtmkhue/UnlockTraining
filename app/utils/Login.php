@@ -23,7 +23,7 @@ function validatedPassword(string $password): string
  * @param array<string> $paramValue
  * @return void
  */
-function saveLoginCookie(string $key, array $paramValue) : void
+function saveLoginCookie(string $key, array $paramValue): void
 {
     if (isset($_COOKIE[$key])) {
         $_COOKIE[$key] = json_encode($paramValue);
@@ -34,12 +34,14 @@ function saveLoginCookie(string $key, array $paramValue) : void
 
 function loginToPage(string $username, string $password): bool
 {
-    $getLoginInfo = getAccountInfo($username, $password);
+    $accountModel = new AccountModel();
+    $getLoginInfo = $accountModel->getAccountInfo($username, $password);
     if (count($getLoginInfo) == 0) {
         return false;
     }
 
-    $getNameOfUser = getUserInfo($getLoginInfo[0]["account_id"]);
+    $userModel = new UserModel();
+    $getNameOfUser = $userModel->getUserInfo($getLoginInfo[0]["account_id"]);
     if (count($getNameOfUser) == 0) {
         return false;
     }

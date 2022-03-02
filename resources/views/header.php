@@ -1,11 +1,12 @@
-<?php 
+<?php
 
 if (!isset($_SESSION["loginUser"]) || !isset($_COOKIE[$_SESSION["loginUser"]])) {
-  header("Location: index.php?logout=1");
+    header("Location: login?logout=1");
 } else {
-  $loginCookieSave = json_decode($_COOKIE[$_SESSION["loginUser"]], true);
+    $loginCookieSave = json_decode($_COOKIE[$_SESSION["loginUser"]], true);
 }
 
+// var_dump($loginCookieSave);
 ?>
 
 <!DOCTYPE html>
@@ -26,6 +27,7 @@ if (!isset($_SESSION["loginUser"]) || !isset($_COOKIE[$_SESSION["loginUser"]])) 
         crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- <script><?php //include '../resources/js/script.js'; ?></script> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
     <header>
@@ -43,11 +45,8 @@ if (!isset($_SESSION["loginUser"]) || !isset($_COOKIE[$_SESSION["loginUser"]])) 
                   <li class="nav-item dropdown">
                     <a class="navbar-toggler-icon" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <?php if (isset($loginCookieSave["rule"]) && $loginCookieSave["rule"] == "1") {
-                            echo '<li><a id="UserManagement" class="dropdown-item">Manage users</a></li>';
-                        } ?>
                       <!-- <li><a id="Info" class="dropdown-item">Info</a></li> -->
-                      <li><a id="Logout" href="index.php?logout=1" class="dropdown-item">Logout</a></li>
+                      <li><a id="Logout" href="login?logout=1" class="dropdown-item">Logout</a></li>
                     </ul>
                   </li>
                 </ul>
@@ -60,14 +59,19 @@ if (!isset($_SESSION["loginUser"]) || !isset($_COOKIE[$_SESSION["loginUser"]])) 
         <nav class="side-bar">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a href="index.php?view=findnumber" class="nav-link <?php echo (isset($_GET["view"]) && $_GET["view"] == "findnumber") ? "active" : ""; ?>">Find number</a>
+                    <a href="main?view=findnumber" class="nav-link <?php echo (isset($_GET["view"]) && $_GET["view"] == "findnumber") ? "active" : ""; ?>">Find number</a>
                 </li>
                 <li class="nav-item">
-                    <a href="index.php?view=savecookie" class="nav-link <?php echo (isset($_GET["view"]) && $_GET["view"] == "savecookie") ? "active" : ""; ?>">Save Cookie</a>
+                    <a href="main?view=savecookie" class="nav-link <?php echo (isset($_GET["view"]) && $_GET["view"] == "savecookie") ? "active" : ""; ?>">Save Cookie</a>
                 </li>
                 <li class="nav-item">
-                    <a href="index.php?view=drawrectangle" class="nav-link <?php echo (isset($_GET["view"]) && $_GET["view"] == "drawrectangle") ? "active" : ""; ?>">Draw rectangle star</a>
+                    <a href="main?view=drawrectangle" class="nav-link <?php echo (isset($_GET["view"]) && $_GET["view"] == "drawrectangle") ? "active" : ""; ?>">Draw rectangle star</a>
                 </li>
+                <?php if (isset($loginCookieSave["rule"]) && $loginCookieSave["rule"] == "1") { ?>
+                  <li class="nav-item">
+                    <a href="/users" class="nav-link <?php echo (isset($uri[1]) && $uri[1] == "users") ? "active" : ""; ?>">Users management</a>
+                  </li>
+                <?php } ?>
             </ul>
         </nav>
 

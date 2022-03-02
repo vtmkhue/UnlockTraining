@@ -1,7 +1,8 @@
 <?php
 
 if (isset($_SESSION["loginUser"]) && isset($_COOKIE[$_SESSION["loginUser"]])) {
-    header("Location: index.php?view=findnumber");
+    header("Location: main?view=findnumber");
+    exit();
 }
 
 $errMessage = "";
@@ -22,7 +23,7 @@ if (isset($_POST["username"])) {
     }
 
     if (loginToPage($username, $password)) {
-        header("Location: index.php?view=findnumber", TRUE, 301);
+        header("Location: main?view=findnumber", true, 301);
         exit();
     } else {
         $errMessage = "Login information is wrong.";

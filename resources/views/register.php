@@ -57,13 +57,13 @@
                       <h6 class="mb-2 pb-1" style="padding-top: 10px;">Gender: </h6>
                       <div class="form-check form-check-inline">
                         <label class="form-check-label" for="femaleGender" style="padding-top: 0px;">Female</label>
-                        <input class="form-check-input" type="radio" name="gender" id="femaleGender" value="1" 
-                          <?php echo ($gender == "1") ? "checked" : "" ?> />
+                        <input class="form-check-input" type="radio" name="gender" id="femaleGender" value="2" 
+                          <?php echo ($gender == "2") ? "checked" : "" ?> />
                       </div>
                       <div class="form-check form-check-inline">
                         <label class="form-check-label" for="maleGender" style="padding-top: 0px;">Male</label>
-                        <input class="form-check-input" type="radio" name="gender" id="maleGender" value="2" 
-                          <?php echo ($gender == "2") ? "checked" : "" ?>/>
+                        <input class="form-check-input" type="radio" name="gender" id="maleGender" value="1" 
+                          <?php echo ($gender == "1") ? "checked" : "" ?>/>
                       </div>
                       <div class="form-check form-check-inline">
                         <label class="form-check-label" for="otherGender" style="padding-top: 0px;">Other</label>
@@ -127,7 +127,7 @@
                   <p id="errinsert" class="errMessage" style="text-align: center;"><?php echo $errInsertUser; ?></p>
                   <div class="d-flex justify-content-center mx-4 mb-lg-4 mb-4 mt-2">
                     <button id="btnSubmit" type="submit" class="btn btn-primary btn-lg">Register</button>
-                    <a href="index.php">
+                    <a href="/login">
                       <button id="btnBack" type="button" class="btn btn-light btn-lg" data-mdb-ripple-color="dark">Back</button>
                     </a>
                   </div>
@@ -154,7 +154,7 @@
           </div>
           <div class="modal-footer">
     <!--        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
-            <a href="index.php">
+            <a href="/login">
               <button type="button" class="btn btn-primary">Go to login page</button>
             </a>
           </div>

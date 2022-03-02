@@ -114,7 +114,7 @@ function validatedNewUsername(string $username): string
 
     if (isset($_COOKIE["bugCrash"]) && $_COOKIE["bugCrash"] == $username) {
         return "Username is already have.";
-    } else if (isUsernameExisted($username)) {
+    } elseif (isUsernameExisted($username)) {
         setcookie("bugCrash", $username, strtotime('+30 days'));
         return "Username is already have.";
     }
@@ -160,17 +160,19 @@ function validatedNewPassword(string $password, string $repassword): string
 function registerNewUser(array $paramAccount, array $paramUser): bool
 {
     try {
-        $newAccountId = insertNewAccount([$paramAccount]);
+        $accountModel = new AccountModel();
+        $newAccountId = $accountModel->insertNewAccount([$paramAccount]);
         if (count($newAccountId) == 0) {
             return false;
         }
 
         array_push($paramUser, $newAccountId[0]);
 
-        $newUserId = insertNewUser([$paramUser]);
+        $userModel = new UserModel();
+        $newUserId = $userModel->insertNewUser([$paramUser]);
         if (count($newUserId) == 0) {
             $newIDInsert = $newAccountId[0];
-            deleteAccount([$newIDInsert]);
+            $accountModel->deleteAccount([$newIDInsert]);
             return false;
         }
     } catch (Exception $e) {
